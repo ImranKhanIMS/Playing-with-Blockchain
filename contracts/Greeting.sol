@@ -11,12 +11,13 @@ contract Greeting {
         uint count;
         bool flag;
     }
+    Data private data;
 
     constructor() {
         name = 'Greeting';
         age = 18;
 
-        Data(1,'test',1,true);
+        data = Data(1,'test',1,true);
     }
 
     function getName() public view returns(string memory){
@@ -40,7 +41,6 @@ contract Greeting {
         age = _age;
     }
 
-    Data public data;
     function getData() public view returns(uint256) {
 
         return data.id;
