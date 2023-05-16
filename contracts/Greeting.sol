@@ -4,6 +4,7 @@ pragma solidity ^0.8.9;
 contract Greeting {
     string private name;
     uint private age;
+    uint private counter;
 
     uint[] public arr;
 
@@ -14,8 +15,13 @@ contract Greeting {
         bool flag;
     }
     Data private data;
+    Data private dataCustom;
+    Data private dataMapping;
 
-    // Data[] public structArray;
+    Data[] private structArray;
+
+    // Mapping of Data
+    mapping(uint256 => Data) private store;
 
     constructor() {
         name = 'Greeting';
@@ -25,8 +31,7 @@ contract Greeting {
 
         data = Data(1,'test',1,false);
 
-        // structArray.push(1,'test',1,false);
-        
+        structArray.push(Data(1,'test',1,false));      
     }
 
     function getName() public view returns(string memory){
@@ -65,5 +70,39 @@ contract Greeting {
 
     function getStructFlag() public view returns(bool) {
         return data.flag;
+    }
+
+
+    function getData() public view returns(Data memory) {
+        return data;
+    }
+
+    function getStructArray(uint _index) public view returns(Data memory) {
+        return structArray[_index];
+    }
+    
+    function setData(string memory _title, uint _count, bool _flag) public {
+        counter++;
+        dataCustom = Data(counter, _title, _count, _flag);
+    }
+
+    function getDataCustom() public view returns(Data memory) {
+        return dataCustom;
+    }
+
+    function setStructArray(string memory _title, uint _count, bool _flag) public {
+        counter++;
+        structArray.push(Data(counter, _title, _count, _flag)); 
+    }
+
+    function setMapping(string memory _title, uint _count, bool _flag) public {
+        counter++;
+
+        dataMapping = Data(counter, _title, _count, _flag);
+        store[counter] = dataMapping;
+    }
+
+    function getMapping(uint _index) public view returns(Data memory) {
+        return store[_index];
     }
 }

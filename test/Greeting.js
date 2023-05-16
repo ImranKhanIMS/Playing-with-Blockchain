@@ -55,7 +55,7 @@ describe("Greeting", function () {
     });
 
 
-    // checking all values of struct Data
+    // checking all values of struct Data by individual methods
     it("Data struct valus at beggining", async function () {
       const id = await greeting.getStructId();
       const title = await greeting.getStructTitle();
@@ -66,6 +66,64 @@ describe("Greeting", function () {
       expect(title).to.equal('test');
       expect(count).to.equal(1);
       expect(flag).to.equal(false);
+    });
+
+    // checking all values of struct Data by one method
+    it("Data struct valus at the start", async function () {
+      const data = await greeting.getData();
+
+      expect(data.id).to.equal(1);
+      expect(data.title).to.equal('test');
+      expect(data.count).to.equal(1);
+      expect(data.flag).to.equal(false);
+    });
+
+    // checking structArray values at the start
+    it("structArray valus at the start", async function () {
+      const data = await greeting.getStructArray(0);
+
+      expect(data.id).to.equal(1);
+      expect(data.title).to.equal('test');
+      expect(data.count).to.equal(1);
+      expect(data.flag).to.equal(false);
+    });
+
+    // setting new values to the Data struct
+    it("Struct Values Updated", async function () {
+      await greeting.setData('Blockchain', 2, true);
+
+      const data = await greeting.getDataCustom();
+
+      expect(data.id).to.equal(1);
+      expect(data.title).to.equal('Blockchain');
+      expect(data.count).to.equal(2);
+      expect(data.flag).to.equal(true);
+    });
+
+    // adding more values to the structArray
+    it("StructArray Values added", async function () {
+      await greeting.setStructArray('DApp', 2, true);
+
+      const data = await greeting.getStructArray(1);
+
+      expect(data.id).to.equal(1);
+      expect(data.title).to.equal('DApp');
+      expect(data.count).to.equal(2);
+      expect(data.flag).to.equal(true);
+    });
+
+
+    // adding data to mapping
+    it("Mapping Values added", async function () {
+      await greeting.setMapping('IMS', 3, true);
+      await greeting.setMapping('CECOS', 4, false);
+
+      const data = await greeting.getMapping(2);
+
+      expect(data.id).to.equal(2);
+      expect(data.title).to.equal('CECOS');
+      expect(data.count).to.equal(4);
+      expect(data.flag).to.equal(false);
     });
   });
 });
