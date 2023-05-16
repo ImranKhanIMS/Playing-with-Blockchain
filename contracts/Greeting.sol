@@ -2,12 +2,21 @@
 pragma solidity ^0.8.9;
 
 contract Greeting {
-    string public name;
-    uint public age;
+    string private name;
+    uint private age;
+
+    struct Data {
+        uint256 id;
+        string title;
+        uint count;
+        bool flag;
+    }
 
     constructor() {
         name = 'Greeting';
         age = 18;
+
+        Data(1,'test',1,true);
     }
 
     function getName() public view returns(string memory){
@@ -29,5 +38,14 @@ contract Greeting {
     function setAttributes(string memory _name, uint _age) public payable {
         name = _name;
         age = _age;
+    }
+
+    Data public data;
+    function getData() public view returns(uint256) {
+
+        return data.id;
+        // return data.title;
+        // return data.count;
+        // return data.flag;
     }
 }
