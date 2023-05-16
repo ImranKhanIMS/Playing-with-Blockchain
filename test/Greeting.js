@@ -55,7 +55,7 @@ describe("Greeting", function () {
     });
 
 
-    // checking all values of Data struct
+    // checking all values of struct Data
     it("Data struct valus at beggining", async function () {
       const id = await greeting.getStructId();
       const title = await greeting.getStructTitle();
