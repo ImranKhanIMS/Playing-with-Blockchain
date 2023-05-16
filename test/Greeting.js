@@ -48,6 +48,12 @@ describe("Greeting", function () {
       expect(age).to.equal(2050);
     });
 
+    // checking arr Array value at index 0
+    it("arr[0] = 5", async function () {
+      const arr = await greeting.arr([0]);
+      expect(arr).to.equal(5);
+    });
+
 
     // checking all values of Data struct
     it("Data struct valus at beggining", async function () {

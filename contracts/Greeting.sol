@@ -5,6 +5,8 @@ contract Greeting {
     string private name;
     uint private age;
 
+    uint[] public arr;
+
     struct Data {
         uint256 id;
         string title;
@@ -13,11 +15,18 @@ contract Greeting {
     }
     Data private data;
 
+    // Data[] public structArray;
+
     constructor() {
         name = 'Greeting';
         age = 18;
 
+        arr.push(5);
+
         data = Data(1,'test',1,false);
+
+        // structArray.push(1,'test',1,false);
+        
     }
 
     function getName() public view returns(string memory){
