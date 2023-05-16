@@ -17,7 +17,7 @@ contract Greeting {
         name = 'Greeting';
         age = 18;
 
-        data = Data(1,'test',1,true);
+        data = Data(1,'test',1,false);
     }
 
     function getName() public view returns(string memory){
@@ -41,11 +41,20 @@ contract Greeting {
         age = _age;
     }
 
-    function getData() public view returns(uint256) {
 
+    function getStructId() public view returns(uint256) {
         return data.id;
-        // return data.title;
-        // return data.count;
-        // return data.flag;
+    }
+
+    function getStructTitle() public view returns(string memory) {
+        return data.title;
+    }
+
+    function getStructCount() public view returns(uint256) {
+        return data.count;
+    }
+
+    function getStructFlag() public view returns(bool) {
+        return data.flag;
     }
 }

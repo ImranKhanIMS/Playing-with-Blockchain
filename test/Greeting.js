@@ -49,10 +49,17 @@ describe("Greeting", function () {
     });
 
 
-    // checking id in Data struct value
-    it("id must be 1 at beggining", async function () {
-      const id = await greeting.getData();
+    // checking all values of Data struct
+    it("Data struct valus at beggining", async function () {
+      const id = await greeting.getStructId();
+      const title = await greeting.getStructTitle();
+      const count = await greeting.getStructCount();
+      const flag = await greeting.getStructFlag();
+
       expect(id).to.equal(1);
+      expect(title).to.equal('test');
+      expect(count).to.equal(1);
+      expect(flag).to.equal(false);
     });
   });
 });
