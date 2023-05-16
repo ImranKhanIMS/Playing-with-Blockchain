@@ -35,6 +35,41 @@
       "artifacts": [
         "Greeting"
       ]
+    },
+    "C:\\Users\\Imran Khan\\Desktop\\Blockchain\\Playing-with-Blockchain\\contracts\\NewFile.sol": {
+      "lastModificationDate": 1684268161004,
+      "contentHash": "38c0914cc0636193eb2b8234ba09145b",
+      "sourceName": "contracts/NewFile.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "NewFile"
+      ]
     }
   }
 }
