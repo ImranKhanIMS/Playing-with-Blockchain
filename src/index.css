@@ -25,3 +25,11 @@ code {
 .fields {
   color:rgb(39, 248, 255);
 }
+
+.columns {
+  color:rgb(11, 231, 234)
+}
+
+.values {
+  color:rgb(60, 219, 255);
+}

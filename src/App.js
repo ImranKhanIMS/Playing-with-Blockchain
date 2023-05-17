@@ -18,6 +18,14 @@ function App() {
   const [n, setN] = useState("");
   const [a, setA] = useState("");
 
+  // array to store struct 'Data'
+  const [data, setData] = useState([]);
+
+  // array to store list of struct 'structData'
+  // const [dataStruct, setDataStruct] = useState([]);
+
+  const [counter, setCounter] = useState("");
+
   // Helper Functions
   const requestAccount = async () => {
     await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -31,10 +39,20 @@ function App() {
       try {
         const name = await contract.getName();
         const age = await contract.getAge();
+
+        // getting struct data and string in an array
+        const struct = await contract.getData();
+        setData(struct);
+        // console.log(data[0].toNumber());
+
+        // will be deployed next time
+        // const counter = await contract.counter();
+        // setCounter(counter);
+
         setN(name);
         setA(age.toNumber());
-        console.log(name);
-        console.log(age.toNumber());
+        // console.log(name);
+        // console.log(age.toNumber());
       } catch (error) {
         console.log(error);
       }
@@ -87,6 +105,20 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+
+    <p> Structure 'Data' and its Values<br />
+      ( <span className='columns'>ID, Title, Count, Flag</span> )<br />
+      ( <span className='values'>
+        {/* (
+          {data[0].toNumber()}
+          {data[1]}
+          {data[2].toNumber()}
+          {data[3]?'True':'False'}
+        ) */}
+      </span> )
+    </p>
+
+{/* just to show what is typing in the box */}
         <p>
           {message}
         </p>

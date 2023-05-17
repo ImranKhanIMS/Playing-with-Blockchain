@@ -5,7 +5,7 @@ contract Greeting {
     // normal solidity variables
     string private name;
     uint private age;
-    uint private counter;
+    uint public counter;
 
     // list
     uint[] public arr;
