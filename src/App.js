@@ -22,9 +22,11 @@ function App() {
   const [data, setData] = useState([]);
 
   // array to store list of struct 'structData'
-  // const [dataStruct, setDataStruct] = useState([]);
+  const [dataStruct, setDataStruct] = useState([]);
 
-  const [counter, setCounter] = useState("");
+  // const [counter, setCounter] = useState("");
+
+  // const [data1, setData1] = useState([]);
 
   // Helper Functions
   const requestAccount = async () => {
@@ -40,10 +42,15 @@ function App() {
         const name = await contract.getName();
         const age = await contract.getAge();
 
-        // getting struct data and string in an array
+        // getting struct data and storing in an array
         const struct = await contract.getData();
         setData(struct);
         // console.log(data[0].toNumber());
+
+        // getting list of struct data and storing in an array
+        const structData = await contract.getStructArray(0);
+        setDataStruct(structData);
+        // console.log((dataStruct[0]).toNumber());
 
         // will be deployed next time
         // const counter = await contract.counter();
@@ -106,15 +113,23 @@ function App() {
     <div className="App">
       <header className="App-header">
 
-    <p> Structure 'Data' and its Values<br />
+    <p> Structure 'Data' Values<br />
       ( <span className='columns'>ID, Title, Count, Flag</span> )<br />
       ( <span className='values'>
-        {/* (
-          {data[0].toNumber()}
-          {data[1]}
-          {data[2].toNumber()}
-          {data[3]?'True':'False'}
-        ) */}
+          {data[0]?data[0].toNumber():''} &nbsp;
+          {data[0]?data[1]:''} &nbsp;
+          {data[0]?data[2].toNumber():''} &nbsp;
+          {data[0]?data[3]?'True':'False':''}
+      </span> )
+    </p>
+
+    <p> List of sturcture 'getStructArray' Values<br />
+      ( <span className='columns'>ID, Title, Count, Flag</span> )<br />
+      ( <span className='values'>
+          {dataStruct[0]?(dataStruct[0]).toNumber():''} &nbsp;
+          {dataStruct[0]?dataStruct[1]:''} &nbsp;
+          {dataStruct[0]?dataStruct[2].toNumber():''} &nbsp;
+          {dataStruct[0]?dataStruct[3]?'True':'False':''}
       </span> )
     </p>
 
@@ -141,7 +156,7 @@ function App() {
         <br />
         
         <div className='allButtons'>
-          <button className='button' onClick={fetchData}>Fetch</button>
+          <button className='button' onClick={fetchData}>Fetch Struct Data</button>
           <button className='button' onClick={setName}>Set Name</button>
           <button className='button' onClick={setAttributes}>Set Attributes</button>
         </div>
