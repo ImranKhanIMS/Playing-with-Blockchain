@@ -14,6 +14,11 @@ function App() {
   const [message, setMessage] = useState("");
   const [age, setAge] = useState("");
 
+  const [title, setTitle] = useState("");
+  const [count, setCount] = useState("");
+  const [flag, setFlag] = useState("");
+
+
   // state for getting the values of the variable
   const [n, setN] = useState("");
   const [a, setA] = useState("");
@@ -27,7 +32,7 @@ function App() {
     // array to store mapping struct 'store'
     const [store, setStore] = useState([]);
 
-  // const [counter, setCounter] = useState("");
+  const [counter, setCounter] = useState(0);
 
   // Helper Functions
   const requestAccount = async () => {
@@ -54,13 +59,13 @@ function App() {
         // console.log((dataStruct[0]).toNumber());
 
         // getting mapping struct data and storing in an array state 'store'
-        const store = await contract.getMapping(1);
+        const store = await contract.getMapping(0);
         setStore(store);
         // console.log((store[0]).toNumber());
 
-        // will be deployed next time
-        // const counter = await contract.counter();
-        // setCounter(counter);
+        // getting the counter value
+        const counter = await contract.getCounter();
+        setCounter(counter);
 
         setN(name);
         setA(age.toNumber());
@@ -139,6 +144,17 @@ function App() {
       </span> )
     </p>
 
+    <p> List of mapping 'getMapping' Values<br />
+      ( <span className='columns'>ID, Title, Count, Flag</span> )<br />
+      ( <span className='values'>
+          {store[0]?(store[0]).toNumber():''} &nbsp;
+          {store[0]?store[1]:''} &nbsp;
+          {store[0]?store[2].toNumber():''} &nbsp;
+          {store[0]?store[3]?'True':'False':''}
+      </span> )
+    </p>
+
+    <p>Counter: {counter!=0?counter:'0'}</p>
 {/* just to show what is typing in the box */}
         <p>
           {message}
@@ -160,6 +176,20 @@ function App() {
         </span>
 
         <br />
+
+        <div class="struct">
+          <input
+            onChange={(e) => setTitle(e.target.value)}
+            value={title} type='text' name='title' id='title' placeholder='Title' />
+
+          <input
+            onChange={(e) => setCount(e.target.value)}
+            value={count} type='text' name='title' id='count' placeholder='Count' />
+
+          <input
+            onChange={(e) => setFlag(e.target.value)}
+            value={flag} type='text' name='flag' id='flag' placeholder='Flag' />
+        </div>
         
         <div className='allButtons'>
           <button className='button' onClick={fetchData}>Fetch Struct Data</button>

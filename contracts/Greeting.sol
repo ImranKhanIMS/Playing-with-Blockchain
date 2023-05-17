@@ -5,7 +5,7 @@ contract Greeting {
     // normal solidity variables
     string private name;
     uint private age;
-    uint public counter;
+    uint private counter;
 
     // list
     uint[] public arr;
@@ -36,7 +36,9 @@ contract Greeting {
 
         data = Data(1,'test',1,false);
 
-        structArray.push(Data(1,'test',1,false));      
+        structArray.push(Data(1,'test',1,false));
+
+        store[0] = Data(1,'test',1,false);    
     }
 
     // method to return name
@@ -63,6 +65,11 @@ contract Greeting {
     function setAttributes(string memory _name, uint _age) public payable {
         name = _name;
         age = _age;
+    }
+
+    // method to return counter
+    function getCounter() public view returns(uint){
+        return counter;
     }
 
 
