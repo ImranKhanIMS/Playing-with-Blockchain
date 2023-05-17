@@ -16,7 +16,6 @@ function App() {
 
   const [title, setTitle] = useState("");
   const [count, setCount] = useState("");
-  const [flag, setFlag] = useState("");
 
 
   // state for getting the values of the variable
@@ -28,6 +27,7 @@ function App() {
 
   // array to store list of struct 'structData'
   const [dataStruct, setDataStruct] = useState([]);
+  const [dataStruct2, setDataStruct2] = useState([]);
 
     // array to store mapping struct 'store'
     const [store, setStore] = useState([]);
@@ -56,7 +56,13 @@ function App() {
         // getting list of struct data and storing in an array state
         const structData = await contract.getStructArray(0);
         setDataStruct(structData);
-        // console.log((dataStruct[0]).toNumber());
+
+        // const res = await contract.getStructArray(2);
+        // console.log(res);
+
+        // const structData2 = await contract.getDataCustom();
+        // setDataStruct2(structData2);
+        // console.log(dataStruct2);
 
         // getting mapping struct data and storing in an array state 'store'
         const store = await contract.getMapping(0);
@@ -115,6 +121,26 @@ function App() {
       }
     }
   }
+
+  // Setting ..........
+  // const pushData = async () => {
+  //   if (window.ethereum) {
+  //     try {
+  //       await window.ethereum.enable();
+  //       const provider = new ethers.providers.Web3Provider(window.ethereum);
+  //       const signer = provider.getSigner();
+  
+  //       const contract = new ethers.Contract(greetingAddress, GreetingABI.abi, signer);
+  //       const transaction = await contract.setData('DApp', 2, true);
+  
+  //       await transaction.wait();
+  //       fetchData();
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  // };
+  
 
   useEffect(() => {
     fetchData()
@@ -178,17 +204,17 @@ function App() {
         <br />
 
         <div class="struct">
+
+          arrayStruct: &nbsp;
           <input
             onChange={(e) => setTitle(e.target.value)}
-            value={title} type='text' name='title' id='title' placeholder='Title' />
+            value={title} type='text' name='title' id='title' placeholder='Title' /> &nbsp;
 
           <input
             onChange={(e) => setCount(e.target.value)}
-            value={count} type='text' name='title' id='count' placeholder='Count' />
+            value={count} type='text' name='title' id='count' placeholder='Count' /> &nbsp;
 
-          <input
-            onChange={(e) => setFlag(e.target.value)}
-            value={flag} type='text' name='flag' id='flag' placeholder='Flag' />
+          {/* <button className='button' onClick={pushData}>Push Data</button> */}
         </div>
         
         <div className='allButtons'>
