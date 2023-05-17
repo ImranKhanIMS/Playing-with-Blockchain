@@ -24,9 +24,10 @@ function App() {
   // array to store list of struct 'structData'
   const [dataStruct, setDataStruct] = useState([]);
 
-  // const [counter, setCounter] = useState("");
+    // array to store mapping struct 'store'
+    const [store, setStore] = useState([]);
 
-  // const [data1, setData1] = useState([]);
+  // const [counter, setCounter] = useState("");
 
   // Helper Functions
   const requestAccount = async () => {
@@ -42,15 +43,20 @@ function App() {
         const name = await contract.getName();
         const age = await contract.getAge();
 
-        // getting struct data and storing in an array
+        // getting struct data and storing in an array state
         const struct = await contract.getData();
         setData(struct);
         // console.log(data[0].toNumber());
 
-        // getting list of struct data and storing in an array
+        // getting list of struct data and storing in an array state
         const structData = await contract.getStructArray(0);
         setDataStruct(structData);
         // console.log((dataStruct[0]).toNumber());
+
+        // getting mapping struct data and storing in an array state 'store'
+        const store = await contract.getMapping(1);
+        setStore(store);
+        // console.log((store[0]).toNumber());
 
         // will be deployed next time
         // const counter = await contract.counter();
