@@ -10,8 +10,11 @@ const greetingAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 
 function App() {
 
+  // state for setting new values to the variables
   const [message, setMessage] = useState("");
   const [age, setAge] = useState("");
+
+  // state for getting the values of the variable
   const [n, setN] = useState("");
   const [a, setA] = useState("");
 
@@ -26,7 +29,7 @@ function App() {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const contract = new ethers.Contract(greetingAddress, GreetingABI.abi, provider);
       try {
-        const name = await contract.name();
+        const name = await contract.getName();
         const age = await contract.getAge();
         setN(name);
         setA(age.toNumber());
@@ -85,21 +88,32 @@ function App() {
     <div className="App">
       <header className="App-header">
         <p>
-          Blockchain Data ({message})
+          {message}
         </p>
         
-        <span>Name: {n}</span>
-        <span>Age: {a}</span>
+        <span className='fields'>
+          <input
+            onChange={(e) => setMessage(e.target.value)}
+            value={message} type='text' name='value' id='value' placeholder='Name' />
+          &nbsp;&nbsp;&nbsp;  {n}
+        </span>
 
-        <input
-          onChange={(e) => setMessage(e.target.value)}
-          value={message} type='text' name='value' id='value' placeholder='Name' /><br />
+        <span className='fields'>
           <input
             onChange={(e) => setAge(e.target.value)}
-            value={age} type='text' placeholder='Age' /><br />
-        <button onClick={fetchData}>Fetch</button><br />
-        <button onClick={setName}>Set Name</button><br />
-        <button onClick={setAttributes}>Set Attributes</button>
+            value={age} type='text' placeholder='Age' />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {a}
+        </span>
+
+        <br />
+        
+        <div className='allButtons'>
+          <button className='button' onClick={fetchData}>Fetch</button>
+          <button className='button' onClick={setName}>Set Name</button>
+          <button className='button' onClick={setAttributes}>Set Attributes</button>
+        </div>
+        
       </header>
     </div>
   );

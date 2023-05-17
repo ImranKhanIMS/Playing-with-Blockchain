@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.button {
+  color:rgb(255, 3, 251);
+  background-color:aqua;
+  font-weight: bold;
+}
+
+.allButtons {
+  margin-left: -5%;
+}
+
+.fields {
+  color:rgb(39, 248, 255);
+}
