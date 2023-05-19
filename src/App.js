@@ -21,7 +21,9 @@ function App() {
   const [dataStruct, setDataStruct] = useState([]);
 
   // Testting Array State
-  const [arr, setArr] = useState([]);
+  let [arr, setArr] = useState([]);
+  
+  let [newArr, setNewArr] = useState([[],[]]);
 
 
   // array to store mapping struct 'store'
@@ -71,6 +73,11 @@ function App() {
 
         test = await contract.getStructArray(i);
         array[i] = test;
+
+        
+        
+        
+        // console.log(array[i])
         
         // console.log(array[2]);
 
@@ -81,13 +88,16 @@ function App() {
           // console.log(dataStruct[3]);
         }
 
-        array.map((row, i) => {
-          row.map((data, j) => {
-            console.log(data);
-          })
-        })
-        
+        // assigning 2d array to array state 'arr'
+        setArr(array);
 
+        // array.map((row, i) => {
+        //   row.map((data, j) => {
+        //     // console.log(data);
+        //   })
+        // })
+        // console.log(test)
+        // console.log(arr);
         
 
       } catch (error) {
@@ -190,9 +200,17 @@ function App() {
 
     <br />
 
-( <span className='values'>0, { counter }, 0</span> )
+( <span className='values'>
+    {
+    
+    arr.map((rec, i) => {
+      return rec[0].toNumber();
+    })
+    
+    }
+  </span> )
 </p>
-
+{/* 0, { counter }, 0 */}
 <p> List of mapping 'getMapping' Values<br />
   ( <span className='columns'>ID, Title, Count, Flag</span> )<br />
   ( <span className='values'>
