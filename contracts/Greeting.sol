@@ -35,11 +35,11 @@ contract Greeting {
 
         arr.push(5);
 
-        data = Data(1,'test',1,false);
+        data = Data(1,'Constructor',1,false);
 
-        structArray.push(Data(1,'test',1,false));
+        structArray.push(Data(101,'Constructor',1,false));
 
-        store[0] = Data(1,'test',1,false);    
+        store[0] = Data(101,'Constructor',1,false);    
     }
 
     // method to return name

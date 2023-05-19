@@ -162,7 +162,7 @@ function App() {
         const signer = provider.getSigner();
   
         const contract = new ethers.Contract(greetingAddress, GreetingABI.abi, signer);
-        const transaction = await contract.setMapping(title, count, false);
+        const transaction = await contract.setMapping(title, count, true);
   
         await transaction.wait();
         fetchData();
@@ -276,7 +276,7 @@ function App() {
       <button className='button' onClick={updateData}>Update Data</button>
       <button className='button' onClick={pushDataArray}>Add to List</button>
       <button className='button' onClick={pushDataMapping}>Add to Mapping</button>
-    </div>
+    </div> <br /><br /><br />
         
         {/* <br />
         <div className='allButtons'>
