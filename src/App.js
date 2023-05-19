@@ -22,16 +22,16 @@ function App() {
 
   // Testting Array State
   let [arr, setArr] = useState([]);
-  
-  let [newArr, setNewArr] = useState([[],[]]);
-
+  let [mapArr, setMapArr] = useState([]);
 
   // array to store mapping struct 'store'
   const [store, setStore] = useState([]);
 
   const [counter, setCounter] = useState("");
+  const [counterMap, setCounterMap] = useState("");
 
   let array = [];
+  let mapArray = [];
 
   // Helper Functions
   const requestAccount = async () => {
@@ -55,8 +55,8 @@ function App() {
         // console.log(data[0].toNumber());
 
         // getting list of struct data and storing in an array state
-        const structData = await contract.getStructArray(0);
-        setDataStruct(structData);
+        // const structData = await contract.getStructArray(0);
+        // setDataStruct(structData);
 
         // getting mapping struct data and storing in an array state 'store'
         const store = await contract.getMapping(0);
@@ -68,37 +68,48 @@ function App() {
         setCounter(counter.toNumber());
         // console.log(counter.toNumber());
 
+        // getting the counter for Mapping value
+        const counterMap = await contract.getCounterMap();
+        setCounterMap(counterMap.toNumber());
+
         let test;
-        for (let i=0; i<counter.toNumber(); i++) {
+        for (let i=0; i<counter.toNumber()+1; i++) {
 
-        test = await contract.getStructArray(i);
-        array[i] = test;
+          if (i!=0) {
+            test = await contract.getStructArray(i);
+            array[i] = test;
+          }
 
-        
-        
-        
-        // console.log(array[i])
-        
-        // console.log(array[2]);
+          else {
+            test = await contract.getStructArray(0);
+            array[i] = test;
+          }
+        }
 
-          // console.log(dataStruct.length);
-          // console.log(dataStruct[0].toNumber());
-          // console.log(dataStruct[1]);
-          // console.log(dataStruct[2].toNumber());
-          // console.log(dataStruct[3]);
+        // console.log(counterMap.toNumber());
+        for (let i=0; i<counterMap.toNumber()+1; i++) {
+
+          if (i!=0) {
+            test = await contract.getMapping(i);
+            mapArray[i] = test;
+          }
+
+          else {
+            test = await contract.getMapping(0);
+            mapArray[i] = test;
+          }
         }
 
         // assigning 2d array to array state 'arr'
         setArr(array);
 
-        // array.map((row, i) => {
+        // assigning mapping to array state 'mapArr'
+        setMapArr(mapArray);
+
         //   row.map((data, j) => {
         //     // console.log(data);
-        //   })
-        // })
-        // console.log(test)
-        // console.log(arr);
-        
+        //   })     
+
 
       } catch (error) {
         console.log(error);
@@ -133,7 +144,7 @@ function App() {
         const signer = provider.getSigner();
   
         const contract = new ethers.Contract(greetingAddress, GreetingABI.abi, signer);
-        const transaction = await contract.setStructArray(title, count, false);
+        const transaction = await contract.setStructArray(title, count, true);
   
         await transaction.wait();
         fetchData();
@@ -172,14 +183,14 @@ function App() {
 
     <p> Structure 'Data' Values<br />
       ( <span className='columns'>ID, Title, Count, Flag</span> )<br />
-      ( <span className='values'>
+      {/* ( <span className='values'>
           {data[0]?data[0].toNumber():''} &nbsp;
           {data[0]?data[1]:''} &nbsp;
           {data[0]?data[2].toNumber():''} &nbsp;
           {data[0]?data[3]?'True':'False':''}
       </span> )
 
-    <br />
+    <br /> */}
 
       ( <span className='values'>
           {dataCustom[0]?dataCustom[0].toNumber():''} &nbsp;
@@ -191,43 +202,69 @@ function App() {
 
 <p> List of sturcture 'getStructArray' Values<br />
   ( <span className='columns'>ID, Title, Count, Flag</span> )<br />
-  ( <span className='values'>
+  {/* this is for fist record to display */}
+  {/* ( <span className='values'>
       {dataStruct[0]?(dataStruct[0]).toNumber():''} &nbsp;
       {dataStruct[0]?dataStruct[1]:''} &nbsp;
       {dataStruct[0]?dataStruct[2].toNumber():''} &nbsp;
       {dataStruct[0]?dataStruct[3]?'True':'False':''}
   </span> )
 
-    <br />
+    <br /> */}
 
-( <span className='values'>
-    {
-    
+
+{/* Looping through all the record store in the list of struct (struct array) */}
+{  
     arr.map((rec, i) => {
-      return rec[0].toNumber();
+      return (    
+      <>
+        <span>(</span> <span className='values'>
+        {rec[0].toNumber()} &nbsp;
+        {rec[1]} &nbsp;
+        {rec[2].toNumber()} &nbsp;
+        {rec[3]==true?'True':'False'}
+        </span> <span>)</span>  <br />
+      </>
+        );
     })
-    
-    }
-  </span> )
+}
 </p>
 {/* 0, { counter }, 0 */}
 <p> List of mapping 'getMapping' Values<br />
   ( <span className='columns'>ID, Title, Count, Flag</span> )<br />
-  ( <span className='values'>
+
+  {/* ( <span className='values'>
       {store[0]?(store[0]).toNumber():''} &nbsp;
       {store[0]?store[1]:''} &nbsp;
       {store[0]?store[2].toNumber():''} &nbsp;
       {store[0]?store[3]?'True':'False':''}
-  </span> )
+  </span> ) */}
+
+{/* Looping through all the record store in the list of struct (struct array) */}
+{  
+    mapArr.map((rec, i) => {
+      return (    
+      <>
+        <span>(</span> <span className='values'>
+        {rec[0].toNumber()} &nbsp;
+        {rec[1]} &nbsp;
+        {rec[2].toNumber()} &nbsp;
+        {rec[3]==true?'True':'False'}
+        </span> <span>)</span>  <br />
+      </>
+        );
+    })
+}
+
 </p>
 
-    <p>Counter: {counter}</p>
+    <p>Array Counter: <span className='values'>{counter}</span> | Mapping Counter: <span className='values'>{counterMap}</span></p>
 
     <br /><br />
 
     <div className='struct'>
 
-      Struct Latest Values: &nbsp;
+      {/* Struct Latest Values: &nbsp; */}
       <input
         onChange={(e) => setTitle(e.target.value)}
         value={title} type='text' name='title' id='title' placeholder='Title' /> &nbsp;
@@ -236,16 +273,16 @@ function App() {
         onChange={(e) => setCount(e.target.value)}
         value={count} type='text' name='count' id='count' placeholder='Count' /> &nbsp;
 
-      <button className='button' onClick={updateData}>Update</button>
+      <button className='button' onClick={updateData}>Update Data</button>
       <button className='button' onClick={pushDataArray}>Add to List</button>
       <button className='button' onClick={pushDataMapping}>Add to Mapping</button>
     </div>
         
-        <br />
+        {/* <br />
         <div className='allButtons'>
           <button className='button' onClick={fetchData}>Fetch Struct Data</button>
         </div>
-        
+         */}
       </header>
     </div>
   );

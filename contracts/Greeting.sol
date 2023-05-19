@@ -6,6 +6,7 @@ contract Greeting {
     string private name;
     uint private age;
     uint private counter;
+    uint private counterMap;
 
     // list
     uint[] public arr;
@@ -72,6 +73,11 @@ contract Greeting {
         return counter;
     }
 
+    // method to return counter of mapping
+    function getCounterMap() public view returns(uint){
+        return counterMap;
+    }
+
 
     // method to get id from structure Data
     function getStructId() public view returns(uint256) {
@@ -101,8 +107,7 @@ contract Greeting {
 
     // method to set all variables of structure Data
     function setData(string memory _title, uint _count, bool _flag) public {
-        counter++;
-        dataCustom = Data(counter, _title, _count, _flag);
+        dataCustom = Data(1, _title, _count, _flag);
     }
 
     // method to get the new data set by setData method
@@ -123,10 +128,10 @@ contract Greeting {
 
     // method for putting values to the mapping 'store'
     function setMapping(string memory _title, uint _count, bool _flag) public {
-        counter++;
+        counterMap++;
 
         dataMapping = Data(counter, _title, _count, _flag);
-        store[counter] = dataMapping;
+        store[counterMap] = dataMapping;
     }
 
     // method to get values from the mapping 'store' of the specified index
