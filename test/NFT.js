@@ -1,6 +1,10 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
+const tokens = (n) => {
+  return ethers.utils.parseUnits(n.toString(), 'ether')
+}
+
 describe("NFT Testing", function () {
     beforeEach(async() => {
       [deployer, owner1] = await ethers.getSigners();
@@ -17,24 +21,24 @@ describe("NFT Testing", function () {
 
       // checking ERC721 name var value
       it("List and get a domain", async function () {
-        await nft.listDomain('imran.eth', 500);
+        await nft.listDomain('imran.eth', tokens(5));
         const get = await nft.getDomain(1);
 
         expect(get.name).to.equal('imran.eth');
-        expect(get.cost).to.equal(500);
+        expect(get.cost).to.equal(tokens(5));
         expect(get.isOwned).to.equal(false);
       });
 
       // checking ERC721 name var value
-      // it("Minting a domain", async function () {
-      //   await nft.listDomain('imran.eth', 500);
+      it("Minting a domain", async function () {
+        await nft.listDomain('imran.eth', tokens(5));
 
-      //   const ID = 1
-      //   const AMOUNT = 501
+        const ID = 1
+        const AMOUNT = tokens(5)
 
-      //   await nft.connect(owner1).mint(ID, {value: AMOUNT});
-      //   const totalSupply = await nft.totalSupply();
+        await nft.connect(owner1).mint(ID, {value: AMOUNT});
+        const totalSupply = await nft.totalSupply();
 
-      //   expect(totalSupply).to.equal(1);
-      // });
+        expect(totalSupply).to.equal(1);
+      });
 });

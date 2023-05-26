@@ -8,6 +8,10 @@ import GreetingABI from "./artififacts/contracts/NFT.sol/NFT.json";
 // Deployed Greeting Address
 const greetingAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 
+const tokens = (n) => {
+  return ethers.utils.parseUnits(n.toString(), 'ether')
+}
+
 function App() {
   const [name, setName] = useState("");
   const [cost, setCost] = useState("");
@@ -75,7 +79,6 @@ function App() {
           async () => {
             if (window.ethereum) {
               try {
-                console.log('minting', i);
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
                 const signer = provider.getSigner();
           
