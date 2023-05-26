@@ -2,11 +2,11 @@ const hre = require("hardhat");
 const { ethers } = require("ethers");
 
 async function main() {
-  const Greeting = await hre.ethers.getContractFactory("Greeting");
-  const greeting = await Greeting.deploy();
+  const Greeting = await hre.ethers.getContractFactory("NFT");
+  const greeting = await Greeting.deploy("Imran Khan", "IK");
 
   await greeting.deployed();
-  console.log('Greeting Contract Deployed', greeting.address);
+  console.log('NFT Contract Deployed', greeting.address);
 }
 
 main().catch((error) => {
