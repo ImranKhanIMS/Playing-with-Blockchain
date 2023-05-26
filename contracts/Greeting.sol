@@ -130,7 +130,7 @@ contract Greeting {
     function setMapping(string memory _title, uint _count, bool _flag) public {
         counterMap++;
 
-        dataMapping = Data(counter, _title, _count, _flag);
+        dataMapping = Data(counterMap, _title, _count, _flag);
         store[counterMap] = dataMapping;
     }
 

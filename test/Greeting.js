@@ -63,7 +63,7 @@ describe("Greeting", function () {
       const flag = await greeting.getStructFlag();
 
       expect(id).to.equal(1);
-      expect(title).to.equal('test');
+      expect(title).to.equal('Constructor');
       expect(count).to.equal(1);
       expect(flag).to.equal(false);
     });
@@ -73,7 +73,7 @@ describe("Greeting", function () {
       const data = await greeting.getData();
 
       expect(data.id).to.equal(1);
-      expect(data.title).to.equal('test');
+      expect(data.title).to.equal('Constructor');
       expect(data.count).to.equal(1);
       expect(data.flag).to.equal(false);
     });
@@ -82,8 +82,8 @@ describe("Greeting", function () {
     it("structArray valus at the start", async function () {
       const data = await greeting.getStructArray(0);
 
-      expect(data.id).to.equal(1);
-      expect(data.title).to.equal('test');
+      expect(data.id).to.equal(101);
+      expect(data.title).to.equal('Constructor');
       expect(data.count).to.equal(1);
       expect(data.flag).to.equal(false);
     });
