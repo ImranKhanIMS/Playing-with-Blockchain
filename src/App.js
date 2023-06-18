@@ -1,9 +1,17 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import './App.css';
-
 // ABI
 import GreetingABI from "./artififacts/contracts/NFT.sol/NFT.json";
+
+import axios from 'axios';
+const pinataApiKey = '9b691404018b7c242722';
+const pinataSecretApiKey = '0519522db02d2b58fba1f3700df20551ae92ff1b1a8975d5cfe2168e8c2f40fc';
+
+// const cid = 'QmZfFMKR4QuTquQnBD2jBRwwA7RYtZnpYXtXB2EFrypfzF';
+// const gatewayURL = `https://ipfs.io/ipfs/${cid}`;
+// const pinataSDK = require('@pinata/sdk');
+// const pinata = new pinataSDK('9b691404018b7c242722', '0519522db02d2b58fba1f3700df20551ae92ff1b1a8975d5cfe2168e8c2f40fc');
 
 // Deployed Greeting Address
 const greetingAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
@@ -13,6 +21,42 @@ const tokens = (n) => {
 }
 
 function App() {
+  const [file, setFile] = useState(null);
+  const [img, setImg] = useState("");
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+
+  const handlePinFile = async () => {
+    if (file) {
+      console.log(file);
+        const formData = new FormData();
+        formData.append('file', file);
+      
+        try {
+          const response = await axios.post('https://api.pinata.cloud/pinning/pinFileToIPFS', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              pinata_api_key: pinataApiKey,
+              pinata_secret_api_key: pinataSecretApiKey,
+            },
+          });
+      
+          // console.log('IPFS CID:', response.data.IpfsHash);
+          const path = 'https://ipfs.io/ipfs/'+response.data.IpfsHash;
+          setImg(path);
+          // console.log(path);
+          console.log(img);
+        } catch (error) {
+          console.error('Error pinning file to IPFS:', error);
+        }
+    } else {
+      console.error('No file selected.');
+    }
+  };
+  // new code above
+
   const [name, setName] = useState("");
   const [cost, setCost] = useState("");
   let [mapArr, setMapArr] = useState([]);
@@ -121,7 +165,14 @@ function App() {
         <div className='allButtons'>
           <button className='button' onClick={fetchData}>Fetch Data</button>
         </div>
-        
+
+
+
+            <h1>Pin File to IPFS</h1>
+            <input type="file" onChange={handleFileChange} />
+            <button onClick={handlePinFile}>Pin File</button>
+            <br />
+            <img src={img} width="250px"/>
       </header>
     </div>
   );
